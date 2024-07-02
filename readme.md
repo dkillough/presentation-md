@@ -18,3 +18,4 @@ Generated in its entirety (almost) by Anthropic's Claude 3.5 Sonnet. Use at http
 ### Known bugs/todo: 
 - Shareable link must be generated from the first/title page of the presentation (or manually update the url to include https://dkillough.github.io/presentation-md/ at the start)
 - Move the default input box to anywhere but the top left corner lol
+- Image support unavailable/untested
