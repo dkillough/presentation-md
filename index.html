@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compressed Query Reveal.js Markdown Presentation Generator</title>
+    <title>Markdown Presentation Generator</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/white.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
     <style>
         #input-container {
             position: fixed;
-            top: 10px;
+            bottom: 10px;
             left: 10px;
             z-index: 1000;
             background: rgba(255, 255, 255, 0.9);
@@ -55,6 +55,7 @@
         .reveal img, .reveal video, .reveal iframe {
             max-width: 95%;
             max-height: 95%;
+            object-fit: contain;
         }
         @media (max-width: 600px) {
             .reveal .slides section {
@@ -97,6 +98,14 @@
         generateBtn.addEventListener('click', generatePresentation);
         shareBtn.addEventListener('click', generateShareLink);
         toggleInputBtn.addEventListener('click', toggleInputVisibility);
+
+        marked.use({
+            renderer: {
+                image(href, title, text) {
+                    return `<img src="${href}" alt="${text}" title="${title || ''}" onload="Reveal.layout();">`;
+                }
+            }
+        });
 
         function generatePresentation() {
             const markdown = markdownInput.value;
