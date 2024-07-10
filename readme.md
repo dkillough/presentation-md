@@ -1,12 +1,12 @@
-# Presentation from Markdown
+# Reveal.js Presentation from Markdown
 
-Simple app to render a presentation in-browser from a markdown file.
+Simple app to render a reveal.js presentation in-browser from a markdown file.
 
 Use at https://dkillough.github.io/presentation-md/
 
 Demo [here](https://dkillough.github.io/presentation-md/?p=MQgEAkEsBpQdwKYBsDGB7Atg0kB2oAuASgCgSBaSs4UACwEYSxaAmJ5gZjICpuAjNEgAmvUD0gAXAIZJIKAM7cyAfQCuuIQgBOs3AmVkA2roDWCIaFU6AugAoEADykYADkgQA6dBlIUqJABVaKVwTUABPNFVQAEIgA)
 
-Generated in its entirety (almost) by Anthropic's Claude 3.5 Sonnet. Use at https://claude.ai
+Code generated almost entirely by Anthropic's Claude 3.5 Sonnet. Use at https://claude.ai
 
 ### Features: 
 - Input markdown file into box
