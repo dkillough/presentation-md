@@ -10,12 +10,10 @@ Generated in its entirety (almost) by Anthropic's Claude 3.5 Sonnet. Use at http
 
 ### Features: 
 - Input markdown file into box
-- Generate shareable link
 - Show/hide input box
   - Mouse over input box to reveal
+- Generate shareable link
 - Open presentation from link
 
 ### Known bugs/todo: 
 - Shareable link must be generated from the first/title page of the presentation (or manually update the url to include https://dkillough.github.io/presentation-md/ at the start)
-- Move the default input box to anywhere but the top left corner lol
-- Image support unavailable/untested
