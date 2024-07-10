@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Markdown Presentation Generator</title>
+    <title>Reveal.js Markdown Presentation Generator</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/white.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
     <style>
         #input-container {
             position: fixed;
-            bottom: 10px;
-            left: 10px;
+            bottom: 60px;  /* Positioned above Reveal.js controls */
+            right: 10px;   /* Aligned to the right */
             z-index: 1000;
             background: rgba(255, 255, 255, 0.9);
             padding: 10px;
@@ -64,7 +64,7 @@
         }
         #toggle-input {
             position: fixed;
-            top: 10px;
+            bottom: 30px;  /* Positioned between input container and Reveal.js controls */
             right: 10px;
             z-index: 1001;
         }
@@ -134,7 +134,9 @@
                 minScale: 0.2,
                 maxScale: 2.0,
                 mouseWheel: false,
-                hideInactiveCursor: false
+                hideInactiveCursor: false,
+                controlsLayout: 'bottom-right',
+                controlsBackArrows: 'faded'
             });
             deck.initialize();
         }
