@@ -139,19 +139,54 @@
             deck.initialize();
         }
 
-        function generateShareLink() {
-            const markdown = markdownInput.value;
-            const compressedMarkdown = LZString.compressToEncodedURIComponent(markdown);
-            const shareUrl = `${window.location.href.split('?')[0]}?p=${compressedMarkdown}`;
-            shareLinkDiv.innerHTML = `<a href="${shareUrl}" target="_blank">Share this presentation</a>`;
+        const base128Chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!#$%&'()*+,-./:;<=>?@[]^_`{|}~¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆ";
+
+        function encodeBase128(input) {
+            let result = "";
+            for (let i = 0; i < input.length; i += 7) {
+                let chunk = input.substr(i, 7);
+                let value = 0;
+                for (let j = 0; j < chunk.length; j++) {
+                    value |= chunk.charCodeAt(j) << (j * 8);
+                }
+                while (value > 0 || result.length % 8 !== 0) {
+                    result += base128Chars[value & 127];
+                    value >>= 7;
+                }
+            }
+            return result;
         }
 
+        function decodeBase128(input) {
+            let result = "";
+            for (let i = 0; i < input.length; i += 8) {
+                let chunk = input.substr(i, 8);
+                let value = 0;
+                for (let j = chunk.length - 1; j >= 0; j--) {
+                    value = (value << 7) | base128Chars.indexOf(chunk[j]);
+                }
+                while (value > 0) {
+                    result += String.fromCharCode(value & 255);
+                    value >>= 8;
+                }
+            }
+            return result;
+        }
+
+        function generateShareLink() {
+            const compressedInput = LZString.compressToUTF16(markdownInput);
+            const encodedInput = encodeBase128(compressedInput);
+            const shareLink = `${window.location.origin}${window.location.pathname}?md=${encodedInput}`;
+            shareLinkDiv.textContent = shareLink;
+        }
+        
         function loadPresentationFromUrl() {
             const urlParams = new URLSearchParams(window.location.search);
-            const compressedPresentation = urlParams.get('p');
-            if (compressedPresentation) {
-                const markdown = LZString.decompressFromEncodedURIComponent(compressedPresentation);
-                markdownInput.value = markdown;
+            const mdParam = urlParams.get('md');
+            if (mdParam) {
+                const decodedInput = decodeBase128(mdParam);
+                const decompressedInput = LZString.decompressFromUTF16(decodedInput);
+                document.getElementById('markdown-input').value = decompressedInput;
                 generatePresentation();
             }
         }
